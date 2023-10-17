@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Book Issue{% endblock title %}
+
+{% block content %}
+    <div class="w-50 mx-auto">
+      <h1 class="my-3 text-center">Issue book to a member</h1>
+      <form action="{% url 'bookissue' book.id %}" method="post">
+        {% csrf_token %}
+        <div class="input-group mb-3">
+            <label class="input-group-text" for="book">Selected Book</label>
+            <input class="form-control" type="text" name="book" value="{{book.title}}" disabled>
+        </div>
+        <div class="input-group mb-3">
+          <label class="input-group-text" for="inputGroupSelect02">Issueing Member</label>
+          <select class="form-select" id="inputGroupSelect02" name="member">
+            <option disabled selected>Select...</option>
+            {% for m in members %}
+            <option value="{{m.name}}" {% if m.outstanding_debt > 500 %} disabled {% endif %}>{{m.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        {% comment %} <div class="">
+            <label for="member">Issueing member</label>
+            <select name="member">
+                <option disabled selected>Select member</option>
+                {% for m in members %}
+                <option value="{{m.name}}" {% if m.outstanding_debt > 500 %} disabled {% endif %}>{{m.name}}</option>
+                {% endfor %}
+            </select>
+        </div> {% endcomment %}
+        <div class="row">
+          <button type="submit" class="btn btn-outline-success w-50 offset-3">Issue</button>
+            {% comment %} <input type="submit" value="Issue"> {% endcomment %}
+        </div>
+      </form>
+    </div>
+{% endblock content %}

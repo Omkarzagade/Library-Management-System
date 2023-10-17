@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Search
+{% endblock %}
+
+{% block content %}
+  <div class="m-5">
+    <form action="/search/" method="post">
+      {% csrf_token %}
+      <div class="input-group mb-3">
+        <input type="text" class="form-control" placeholder="Search by Book name or Author" aria-label="Search by title" aria-describedby="button-addon2" name="aa" />
+        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+      </div>
+    </form>
+  </div>
+  <div class="m-3 p-3">
+    <h3>Search Results...</h3>
+    <div class="row gap-4 p-3 row-cols-1 row-cols-md-2 row-cols-lg-3">
+      {% for book in data %}
+        <div class="card text-white bg-dark col" style="max-width: 18rem;">
+          <div class="card-header">{{ book.publisher }}</div>
+          <div class="card-body">
+            <h5 class="card-title">{{ book.title }}</h5>
+            <p class="card-text">By {{ book.authors }}</p>
+          </div>
+          <div class="card-footer">
+            <a href="{% url 'bookissue' book.id %}" class="btn btn-outline-light">Issue Book</a>
+          </div>
+        </div>
+      {% endfor %}
+    </div>
+  </div>
+{% endblock %}

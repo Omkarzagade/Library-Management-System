@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Import Books
+{% endblock %}
+
+{% block content %}
+  <form action="/import/" method="post">
+    {% csrf_token %}
+    <div class="row m-3">
+      <h3>Select books to import in your library <sub>&lbrace;Ctrl + Click&rbrace;</sub></h3>
+      <select class="form-select form-select-lg mb-3" multiple aria-label="multiple select example" name="bb" required>
+        <option disabled>Select books to import</option>
+        {% for title in titles %}
+          <option value="{{ title }}">{{ title }}</option>
+        {% endfor %}
+      </select>
+    </div>
+    <div class="row m-3">
+      <h3>Select quantity of selected books (Each)</h3>
+      <input type="number" class="form-control" name="cc" value="0" />
+    </div>
+    <div class="row">
+      <button type="submit" class="btn btn-outline-success w-25 offset-3">Import</button>
+    </div>
+    {% comment %} <input type="submit" value="send" class="offset-7" /> {% endcomment %}
+  </form>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends 'base.html' %}
+
+{% block title %}
+  Book Return
+{% endblock %}
+
+{% block content %}
+  <div class="p-3 w-50 mx-auto">
+    <h1 class="text-center mb-3">Return book from member</h1>
+    <form action="/return/" method="post">
+      {% csrf_token %}
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="inputGroupSelect01">Book</label>
+        <select class="form-select" id="inputGroupSelect01" name="book">
+          <option disabled selected>Choose...</option>
+          {% for b in books %}
+            <option value="{{ b.title }}">{{ b.title }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      {% comment %} <div class="">
+        <label for="book">Returned Book</label>
+        <select name="book">
+          <option disabled selected>Select Book</option>
+          {% for b in books %}
+            <option value="{{ b.title }}">{{ b.title }}</option>
+          {% endfor %}
+        </select>
+      </div> {% endcomment %}
+      <div class="input-group mb-3">
+        <label class="input-group-text" for="inputGroupSelect02">Member</label>
+        <select class="form-select" id="inputGroupSelect02" name="member">
+          <option disabled selected>Select...</option>
+          {% for m in members %}
+            <option value="{{ m.name }}">{{ m.name }}</option>
+          {% endfor %}
+        </select>
+      </div>
+      {% comment %} <div class="">
+        <select name="member">
+          <option disabled selected>Select member</option>
+          {% for m in members %}
+            <option value="{{ m.name }}">{{ m.name }}</option>
+          {% endfor %}
+        </select>
+      </div> {% endcomment %}
+      <div class="btn-group input-group mb-3" role="group" aria-label="Basic radio toggle button group">
+        <label class="input-group-text" for="r">Pay now &quest;</label>
+        <input type="radio" class="btn-check" name="r" id="btnradio1" value="y" autocomplete="off" checked />
+        <label class="btn btn-outline-primary" for="btnradio1">Yes</label>
+
+        <input type="radio" class="btn-check" name="r" id="btnradio2" value="n" autocomplete="off" />
+        <label class="btn btn-outline-primary" for="btnradio2">No</label>
+      </div>
+      {% comment %} <div class="">
+        <label for="r">Pay now &quest;</label>
+        <input type="radio" name="r" id="r1" value="y" />
+        <label for="r1">Yes</label>
+        <input type="radio" name="r" id="r2" value="n" placeholder="No" />
+        <label for="r2">No</label>
+      </div> {% endcomment %}
+      <div class="row">
+        <button type="submit" class="btn btn-outline-success w-50 offset-3">Return</button>
+        {% comment %} <input type="submit" value="Return" /> {% endcomment %}
+      </div>
+    </form>
+  </div>
+{% endblock %}
